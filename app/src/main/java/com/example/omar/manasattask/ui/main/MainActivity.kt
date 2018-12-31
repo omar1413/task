@@ -1,7 +1,8 @@
-package com.example.omar.manasattask
+package com.example.omar.manasattask.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.omar.manasattask.R
 
 class MainActivity : AppCompatActivity() {
 
