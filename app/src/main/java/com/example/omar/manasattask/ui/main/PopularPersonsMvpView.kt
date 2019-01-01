@@ -1,4 +1,6 @@
 package com.example.omar.manasattask.ui.main
 
-interface PopularPersonsMvpView {
+import com.example.omar.manasattask.ui.base.MvpView
+
+interface PopularPersonsMvpView: MvpView {
 }
