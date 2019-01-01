@@ -14,5 +14,5 @@ class PopularPersonsActivity : BaseActivity(), PopularPersonsMvpView {
     }
 
 
-    
+
 }
