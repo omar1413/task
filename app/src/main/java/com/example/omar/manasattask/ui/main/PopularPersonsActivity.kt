@@ -3,8 +3,9 @@ package com.example.omar.manasattask.ui.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.omar.manasattask.R
+import com.example.omar.manasattask.ui.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class PopularPersonsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
