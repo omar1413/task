@@ -27,7 +27,7 @@ android {
     buildTypes.each{
         it.buildConfigField ("String", "BASE_URL", base_url)
         it.buildConfigField ("String", "API_KEY", api_key)
-        it.buildConfigField ("String", "LANG", "eng")
+        it.buildConfigField ("String", "LANG", "\"eng\"")
     }
 }
 
