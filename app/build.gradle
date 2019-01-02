@@ -27,7 +27,7 @@ android {
     buildTypes.each{
         it.buildConfigField ("String", "BASE_URL", base_url)
         it.buildConfigField ("String", "API_KEY", api_key)
-        it.buildConfigField ("String", "LANG", "\"eng\"")
+        it.buildConfigField ("String", "Base_IMAGE_URL", image_base_url)
     }
 }
 
@@ -49,6 +49,9 @@ dependencies {
 
     implementation 'com.google.dagger:dagger:2.13'
     kapt 'com.google.dagger:dagger-compiler:2.13'
+
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
 
 
 }
