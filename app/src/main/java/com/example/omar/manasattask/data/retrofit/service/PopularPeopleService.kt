@@ -10,7 +10,6 @@ interface PopularPeopleService {
     @GET("/person/popular")
     fun getPopularPeople(
         @Query("api_key") apiKey: String,
-        @Query("language") lang: String,
         @Query("page") pageNum: Int
     ): Single<PopularRoot>
 }

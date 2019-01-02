@@ -16,6 +16,6 @@ class AppDataManager :MvpModel {
 
     override fun getPopularPeopleByPage(pageNum: Int): Single<PopularRoot> {
         val service = retrofitManager?.retrofit?.create(PopularPeopleService::class.java)
-        return service!!.getPopularPeople(BuildConfig.API_KEY,BuildConfig.LANG,pageNum)
+        return service!!.getPopularPeople(BuildConfig.API_KEY,pageNum)
     }
 }
