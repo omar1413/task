@@ -26,6 +26,9 @@ class PopularPersonsActivity : BaseActivity(), PopularPersonsMvpView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_popular_persons)
+
+        activityComponent?.inject(this)
+
         setupRecycler()
         presenter.onAttach(this)
 

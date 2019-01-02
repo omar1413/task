@@ -3,12 +3,24 @@ package com.example.omar.manasattask.ui.base
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.omar.manasattask.TaskApp
+import com.example.omar.manasattask.di.component.ActivityComponent
+import com.example.omar.manasattask.di.component.DaggerActivityComponent
+import com.example.omar.manasattask.di.module.ActivityModule
 
 abstract class BaseActivity: AppCompatActivity(), MvpView {
 
 
+    var activityComponent: ActivityComponent? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        activityComponent = DaggerActivityComponent.builder()
+            .activityModule(ActivityModule(this))
+            .appComponent((application as TaskApp).component)
+            .build()
+
     }
 
 
