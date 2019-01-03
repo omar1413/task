@@ -2,8 +2,11 @@ package com.example.omar.manasattask.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.omar.manasattask.di.qualifier.AppContextQualifier
+import com.example.omar.manasattask.di.qualifier.PrefInfoQualifier
+import javax.inject.Inject
 
-class AppPreferenceHelper constructor(val context: Context, val prefFileName: String): PreferenceHelper{
+class AppPreferenceHelper @Inject constructor(@AppContextQualifier val context: Context, @PrefInfoQualifier val prefFileName: String): PreferenceHelper{
 
 
     var prefs:SharedPreferences? = null

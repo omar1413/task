@@ -8,6 +8,7 @@ import com.example.omar.manasattask.data.MvpModel
 import com.example.omar.manasattask.data.retrofit.RetrofitManager
 import com.example.omar.manasattask.di.qualifier.AppContextQualifier
 import com.example.omar.manasattask.di.qualifier.BaseUrlQualifier
+import com.example.omar.manasattask.di.qualifier.PrefInfoQualifier
 import com.example.omar.manasattask.di.scope.AppScope
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
@@ -87,6 +88,14 @@ class AppModule(var application: Application) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
         return loggingInterceptor
+    }
+
+
+    @PrefInfoQualifier
+    @AppScope
+    @Provides
+    fun prividePrefFileName():String{
+        return "tasl_pref"
     }
 
 
