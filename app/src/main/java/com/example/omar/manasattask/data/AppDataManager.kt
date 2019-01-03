@@ -1,6 +1,7 @@
 package com.example.omar.manasattask.data
 
 import com.example.omar.manasattask.BuildConfig
+import com.example.omar.manasattask.data.prefs.PreferenceHelper
 import com.example.omar.manasattask.data.retrofit.RetrofitManager
 import com.example.omar.manasattask.data.retrofit.pojo.popular.PopularRoot
 import com.example.omar.manasattask.data.retrofit.service.PopularPeopleService
@@ -13,6 +14,9 @@ class AppDataManager :MvpModel {
 
     @Inject
     lateinit var retrofitManager:RetrofitManager
+
+    @Inject
+    lateinit var prefHelper: PreferenceHelper
 
 
     @Inject

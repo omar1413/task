@@ -5,6 +5,8 @@ import android.content.Context
 import com.example.omar.manasattask.BuildConfig
 import com.example.omar.manasattask.data.AppDataManager
 import com.example.omar.manasattask.data.MvpModel
+import com.example.omar.manasattask.data.prefs.AppPreferenceHelper
+import com.example.omar.manasattask.data.prefs.PreferenceHelper
 import com.example.omar.manasattask.data.retrofit.RetrofitManager
 import com.example.omar.manasattask.di.qualifier.AppContextQualifier
 import com.example.omar.manasattask.di.qualifier.BaseUrlQualifier
@@ -96,6 +98,13 @@ class AppModule(var application: Application) {
     @Provides
     fun prividePrefFileName():String{
         return "tasl_pref"
+    }
+
+
+    @AppScope
+    @Provides
+    fun providesPrefsHelper(appPrefs: AppPreferenceHelper): PreferenceHelper{
+        return appPrefs
     }
 
 
