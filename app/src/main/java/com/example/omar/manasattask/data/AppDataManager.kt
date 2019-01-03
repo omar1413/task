@@ -1,41 +1,47 @@
 package com.example.omar.manasattask.data
 
-import com.example.omar.manasattask.BuildConfig
 import com.example.omar.manasattask.data.prefs.PreferenceHelper
 import com.example.omar.manasattask.data.retrofit.RetrofitManager
+import com.example.omar.manasattask.data.retrofit.pojo.persondetails.PersonDetailsResponse
+import com.example.omar.manasattask.data.retrofit.pojo.personimages.PersonImagesResponse
 import com.example.omar.manasattask.data.retrofit.pojo.popular.PopularRoot
-import com.example.omar.manasattask.data.retrofit.service.PopularPeopleService
-import com.example.omar.manasattask.di.scope.AppScope
 import io.reactivex.Single
 import javax.inject.Inject
 
 
-class AppDataManager :MvpModel {
+class AppDataManager : MvpModel {
 
 
     @Inject
-    lateinit var retrofitManager:RetrofitManager
+    lateinit var retrofitManager: RetrofitManager
 
     @Inject
     lateinit var prefHelper: PreferenceHelper
 
 
     @Inject
-   constructor(){
+    constructor() {
         //this.retrofitManager = retrofitManager
-   }
+    }
 
     override fun getPopularPeopleByPage(pageNum: Int): Single<PopularRoot> {
-        val service = retrofitManager.retrofit.create(PopularPeopleService::class.java)
-        return service.getPopularPeople(BuildConfig.API_KEY,pageNum)
+        return retrofitManager.getPopularPeopleByPage(pageNum)
     }
-    override fun getUserId(): Int? {
+
+    override fun getPersonDetails(personId: Int): Single<PersonDetailsResponse> {
+        return retrofitManager.getPersonDetails(personId)
+    }
+
+    override fun getPersonImages(): Single<PersonImagesResponse> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getUserDetailsId(): Int? {
         return prefHelper.getUserDetailsId()
     }
 
-    override fun setUserId(id: Int) {
+    override fun setUserDetailsId(id: Int) {
         prefHelper.setUserDetailsId(id)
     }
-
 
 }

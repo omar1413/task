@@ -10,7 +10,6 @@ interface PersonDetailsService {
 
     @GET("/person/{person_id}")
     fun getPersonDetails(@Path("person_id")personId: Int,
-                         @Query("api_key")apiKey: String,
-                         @Query("language")lang: String
+                         @Query("api_key")apiKey: String
     ): Single<PersonDetailsResponse>
 }
