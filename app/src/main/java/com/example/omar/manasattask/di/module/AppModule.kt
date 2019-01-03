@@ -85,7 +85,7 @@ class AppModule(var application: Application) {
     @Provides
     fun providesLoggingInterceptor():HttpLoggingInterceptor{
         val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
         return loggingInterceptor
     }
 
