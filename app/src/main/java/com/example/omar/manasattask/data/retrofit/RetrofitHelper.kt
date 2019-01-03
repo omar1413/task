@@ -14,5 +14,5 @@ interface RetrofitHelper{
     fun getPersonDetails(personId: Int): Single<PersonDetailsResponse>
 
 
-    fun getPersonImages(): Single<PersonImagesResponse>
+    fun getPersonImages(personId: Int): Single<PersonImagesResponse>
 }

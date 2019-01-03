@@ -63,4 +63,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
 
+
+    implementation 'com.mikhaellopez:hfrecyclerview-kotlin:1.1.1'
+
+
+
 }

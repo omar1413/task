@@ -1,26 +1,29 @@
 package com.example.omar.manasattask.ui.details
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bumptech.glide.Glide
-import com.example.omar.manasattask.BuildConfig
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.omar.manasattask.R
 import com.example.omar.manasattask.data.retrofit.pojo.persondetails.PersonDetailsResponse
 import com.example.omar.manasattask.ui.base.BaseActivity
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
-class DetailsActivity : BaseActivity(),DetailsMvpView {
+class DetailsActivity : BaseActivity(), DetailsMvpView {
 
     @Inject
-    lateinit var  presenter:DetailsMvpPresenter<DetailsMvpView>
+    lateinit var presenter: DetailsMvpPresenter<DetailsMvpView>
+
+    @Inject
+    lateinit var groupieAdapter: GroupAdapter<ViewHolder>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
         activityComponent?.inject(this)
-
+        setupRecycler()
         presenter.onAttach(this)
     }
 
@@ -29,13 +32,30 @@ class DetailsActivity : BaseActivity(),DetailsMvpView {
         presenter.onDetach()
     }
 
+    fun setupRecycler() {
+        val layoutManager = GridLayoutManager(this, 5)
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                if (position == 0)
+                    return 5
+                return 1
+            }
+
+        }
+        image_details_recycler.layoutManager = layoutManager
+        image_details_recycler.adapter = groupieAdapter
+
+    }
 
 
     override fun fillData(personDetails: PersonDetailsResponse) {
-        Glide.with(this).load(BuildConfig.Base_IMAGE_URL + personDetails.profilePath).into(profile_image)
-        name_txt_view.text = personDetails.name
-        popularity_txt_view.text = personDetails.popularity.toString()
-        biography_txt_view.text = personDetails.biography
-        place_of_pirth_txt_view.text = personDetails.placeOfBirth
+
+        groupieAdapter.add(0, DetailsHeader(personDetails))
+        image_details_recycler.scrollToPosition(0)
+    }
+
+    override fun addImageItem(uri: String) {
+            groupieAdapter.add(DetailsItem(uri))
+
     }
 }

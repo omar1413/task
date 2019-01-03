@@ -32,8 +32,8 @@ class AppDataManager : MvpModel {
         return retrofitManager.getPersonDetails(personId)
     }
 
-    override fun getPersonImages(): Single<PersonImagesResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getPersonImages(personId: Int): Single<PersonImagesResponse> {
+        return retrofitManager.getPersonImages(personId)
     }
 
     override fun getUserDetailsId(): Int? {

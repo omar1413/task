@@ -10,7 +10,6 @@ interface PersonImagesService {
     @GET("person/{person_id}/images")
     fun getPersonImages(
         @Path("person_id") personId: Int,
-        @Query("api_key") apiKey: String,
-        @Query("language") lang: String
+        @Query("api_key") apiKey: String
     ): Single<PersonImagesResponse>
 }

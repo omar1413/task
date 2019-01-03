@@ -1,6 +1,10 @@
 package com.example.omar.manasattask.ui.details
 
+import android.util.Log
+import com.example.omar.manasattask.BuildConfig
 import com.example.omar.manasattask.data.MvpModel
+import com.example.omar.manasattask.data.retrofit.pojo.persondetails.PersonDetailsResponse
+import com.example.omar.manasattask.data.retrofit.pojo.personimages.PersonProfile
 import com.example.omar.manasattask.ui.base.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,9 +20,12 @@ class DetailsPresenter<V : DetailsMvpView> @Inject constructor(val dataManager:M
     override fun getUserDetails() {
         val id = dataManager.getUserDetailsId()
         if (id != null) {
-            val response = dataManager.getPersonDetails(id)
+//            val response1 = dataManager.getPersonDetails(id).subscribeOn(Schedulers.io()).toObservable()
+//            val response2 = dataManager.getPersonImages(id).subscribeOn(Schedulers.io()).toObservable()
 
-            val disposable = response.subscribeOn(Schedulers.io())
+
+
+            val response1  = dataManager.getPersonDetails(id).subscribeOn(Schedulers.io())
                 .toObservable()
                 .flatMap { it->
                     Observable.just(it)
@@ -27,11 +34,33 @@ class DetailsPresenter<V : DetailsMvpView> @Inject constructor(val dataManager:M
                 .doOnError {
                     mvpView?.showMessage(it.message!!)
                 }
+
+            val response2 = dataManager.getPersonImages(id)
+                .subscribeOn(Schedulers.io())
+                .toObservable()
+                .map {
+                    it.profiles
+                }
+                .flatMap {
+                    Observable.fromIterable(it)
+                }
+                .doOnError {
+                    Log.d("","")
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+
+            Observable.merge(response1,response2).observeOn(AndroidSchedulers.mainThread())
                 .subscribe{
-                    if (mvpView != null){
-                        mvpView?.fillData(it)
+                    if(mvpView == null)
+                        return@subscribe
+                    when(it){
+                        is PersonDetailsResponse -> mvpView?.fillData(it)
+                        is PersonProfile -> mvpView?.addImageItem(BuildConfig.Base_IMAGE_URL + it.filePath)
                     }
                 }
+
+
+
 
         }
     }

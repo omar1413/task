@@ -8,4 +8,6 @@ interface DetailsMvpView: MvpView{
 
     fun fillData(personDetails: PersonDetailsResponse)
 
+    fun addImageItem(uri: String)
+
 }

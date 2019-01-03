@@ -5,6 +5,7 @@ import com.example.omar.manasattask.data.retrofit.pojo.persondetails.PersonDetai
 import com.example.omar.manasattask.data.retrofit.pojo.personimages.PersonImagesResponse
 import com.example.omar.manasattask.data.retrofit.pojo.popular.PopularRoot
 import com.example.omar.manasattask.data.retrofit.service.PersonDetailsService
+import com.example.omar.manasattask.data.retrofit.service.PersonImagesService
 import com.example.omar.manasattask.data.retrofit.service.PopularPeopleService
 import io.reactivex.Single
 import retrofit2.Retrofit
@@ -26,8 +27,9 @@ class RetrofitManager @Inject constructor() : RetrofitHelper {
         return service.getPersonDetails(personId,BuildConfig.API_KEY)
     }
 
-    override fun getPersonImages(): Single<PersonImagesResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getPersonImages(personId: Int): Single<PersonImagesResponse> {
+        val service = retrofit.create(PersonImagesService::class.java)
+        return service.getPersonImages(personId,BuildConfig.API_KEY)
     }
 
 
