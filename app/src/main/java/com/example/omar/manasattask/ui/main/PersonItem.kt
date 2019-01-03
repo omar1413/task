@@ -10,6 +10,11 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.popular_person_item.view.*
 
 class PersonItem(val person: PopularPerson): Item<ViewHolder>() {
+
+    companion object {
+        val personIdTagKey = 26
+    }
+
     override fun getLayout(): Int {
         return R.layout.popular_person_item
     }
@@ -19,5 +24,6 @@ class PersonItem(val person: PopularPerson): Item<ViewHolder>() {
         Glide.with(v).load(person.imageUri).into(v.profile_image)
         v.name_txt_view.text = person.name
         v.popularity_txt_view.text = "" + person.popularity
+        v.tag = person.id
     }
 }

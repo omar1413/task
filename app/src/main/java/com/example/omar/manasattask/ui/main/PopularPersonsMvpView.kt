@@ -10,4 +10,6 @@ interface PopularPersonsMvpView: MvpView {
 
     fun addPopularPersonToTheList(person: PopularPerson)
 
+    fun goToDetailsActivity()
+
 }

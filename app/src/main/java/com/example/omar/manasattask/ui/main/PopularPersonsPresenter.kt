@@ -14,6 +14,7 @@ class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val
     PopularPersonsMvpPresenter<V> {
 
 
+
     override fun listPopularPersons() {
 
         val disposable = dataManager.getPopularPeopleByPage(1)
@@ -41,6 +42,15 @@ class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val
     override fun onAttach(mvpView: V) {
         super.onAttach(mvpView)
         listPopularPersons()
+    }
+
+
+
+    override fun onItemClicked(personId: Int) {
+        dataManager.setUserDetailsId(personId)
+        if (mvpView != null){
+            mvpView?.goToDetailsActivity()
+        }
     }
 
 

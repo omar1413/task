@@ -10,10 +10,14 @@ class DetailsPresenter<V : DetailsMvpView> (val dataManager:MvpModel): BasePrese
 
     override fun getUserDetails() {
         val id = dataManager.getUserDetailsId()
-
-
+        
 
     }
 
+
+    override fun onAttach(mvpView: V) {
+        super.onAttach(mvpView)
+        getUserDetails()
+    }
 
 }

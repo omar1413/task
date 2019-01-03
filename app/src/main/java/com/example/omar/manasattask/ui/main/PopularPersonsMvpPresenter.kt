@@ -8,4 +8,7 @@ interface PopularPersonsMvpPresenter<V: PopularPersonsMvpView> :MvpPresenter<V> 
 
     fun listPopularPersons()
 
+
+    fun onItemClicked(personId: Int)
+
 }
