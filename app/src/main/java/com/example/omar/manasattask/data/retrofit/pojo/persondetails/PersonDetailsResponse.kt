@@ -8,5 +8,5 @@ data class PersonDetailsResponse(
     @SerializedName("also_known_as") val knownIn: String,
     val biography: String,
     val popularity: Double,
-    @SerializedName("place_of_birth") val palceOfBirth: String
+    @SerializedName("place_of_birth") val placeOfBirth: String
 )
