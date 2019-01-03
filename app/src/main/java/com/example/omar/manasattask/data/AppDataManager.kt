@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 class AppDataManager :MvpModel {
 
+
     @Inject
     lateinit var retrofitManager:RetrofitManager
 
@@ -28,4 +29,13 @@ class AppDataManager :MvpModel {
         val service = retrofitManager.retrofit.create(PopularPeopleService::class.java)
         return service.getPopularPeople(BuildConfig.API_KEY,pageNum)
     }
+    override fun getUserId(): Int? {
+        return prefHelper.getUserDetailsId()
+    }
+
+    override fun setUserId(id: Int) {
+        prefHelper.setUserDetailsId(id)
+    }
+
+
 }

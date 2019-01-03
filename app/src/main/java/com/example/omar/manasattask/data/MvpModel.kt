@@ -7,4 +7,9 @@ interface MvpModel {
 
 
     fun getPopularPeopleByPage(pageNum: Int): Single<PopularRoot>
+
+
+    fun getUserId():Int?
+
+    fun setUserId(id: Int)
 }
