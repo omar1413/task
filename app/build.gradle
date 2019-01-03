@@ -24,10 +24,10 @@ android {
         }
     }
 
-    buildTypes.each{
-        it.buildConfigField ("String", "BASE_URL", base_url)
-        it.buildConfigField ("String", "API_KEY", api_key)
-        it.buildConfigField ("String", "Base_IMAGE_URL", image_base_url)
+    buildTypes.each {
+        it.buildConfigField("String", "BASE_URL", base_url)
+        it.buildConfigField("String", "API_KEY", api_key)
+        it.buildConfigField("String", "Base_IMAGE_URL", image_base_url)
     }
 }
 
