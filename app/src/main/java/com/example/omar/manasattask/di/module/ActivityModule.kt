@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.omar.manasattask.di.qualifier.ActivityContextQualifier
 import com.example.omar.manasattask.di.scope.ActivityScope
+import com.example.omar.manasattask.ui.details.DetailsMvpPresenter
+import com.example.omar.manasattask.ui.details.DetailsMvpView
+import com.example.omar.manasattask.ui.details.DetailsPresenter
 import com.example.omar.manasattask.ui.main.PopularPersonsMvpPresenter
 import com.example.omar.manasattask.ui.main.PopularPersonsMvpView
 import com.example.omar.manasattask.ui.main.PopularPersonsPresenter
@@ -28,6 +31,12 @@ class ActivityModule (val activity: AppCompatActivity){
     @Provides
     fun providesPopularPersonsMvpPresenter(popularPersonsPresenter: PopularPersonsPresenter<PopularPersonsMvpView>): PopularPersonsMvpPresenter<PopularPersonsMvpView>{
         return popularPersonsPresenter
+    }
+
+    @ActivityScope
+    @Provides
+    fun providesDetailsPresenter(detailsPresenter: DetailsPresenter<DetailsMvpView>): DetailsMvpPresenter<DetailsMvpView>{
+        return detailsPresenter
     }
 
 

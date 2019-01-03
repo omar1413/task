@@ -22,7 +22,7 @@ class AppPreferenceHelper @Inject constructor(@AppContextQualifier val context: 
 
 
     override fun setUserDetailsId(id: Int) {
-        prefs?.edit()?.putInt(USER_DETAILS_ID, id)
+        prefs?.edit()?.putInt(USER_DETAILS_ID, id)?.apply()
     }
 
     override fun getUserDetailsId():Int? {

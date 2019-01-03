@@ -20,11 +20,22 @@ class DetailsActivity : BaseActivity(),DetailsMvpView {
         setContentView(R.layout.activity_details)
 
         activityComponent?.inject(this)
+
+        presenter.onAttach(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDetach()
     }
 
 
 
     override fun fillData(personDetails: PersonDetailsResponse) {
         Glide.with(this).load(BuildConfig.Base_IMAGE_URL + personDetails.profilePath).into(profile_image)
+        name_txt_view.text = personDetails.name
+        popularity_txt_view.text = personDetails.popularity.toString()
+        biography_txt_view.text = personDetails.biography
+        place_of_pirth_txt_view.text = personDetails.placeOfBirth
     }
 }

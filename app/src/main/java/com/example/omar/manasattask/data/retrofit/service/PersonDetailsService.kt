@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface PersonDetailsService {
 
-    @GET("/person/{person_id}")
+    @GET("person/{person_id}")
     fun getPersonDetails(@Path("person_id")personId: Int,
                          @Query("api_key")apiKey: String
     ): Single<PersonDetailsResponse>

@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface SearchService {
 
-    @GET("/search/person")
+    @GET("search/person")
     fun searchForPopularPeople(
         @Query("query")query: String,
         @Query("api_key") apiKey: String,
