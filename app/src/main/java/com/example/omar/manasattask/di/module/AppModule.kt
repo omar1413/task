@@ -13,6 +13,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -70,8 +71,22 @@ class AppModule(var application: Application) {
 
     @AppScope
     @Provides
-    fun providesOkHttpClient(): OkHttpClient{
-        return OkHttpClient()
+    fun providesOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient{
+        val okHttpClientBuilder = OkHttpClient.Builder()
+        if (BuildConfig.DEBUG){
+            okHttpClientBuilder.addInterceptor(loggingInterceptor)
+        }
+
+        return okHttpClientBuilder.build()
+    }
+
+
+    @AppScope
+    @Provides
+    fun providesLoggingInterceptor():HttpLoggingInterceptor{
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return loggingInterceptor
     }
 
 

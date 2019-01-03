@@ -1,6 +1,7 @@
 package com.example.omar.manasattask.ui.main
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.omar.manasattask.R
 import com.example.omar.manasattask.models.PopularPerson
@@ -17,7 +18,7 @@ class PopularPersonsActivity : BaseActivity(), PopularPersonsMvpView {
     lateinit var presenter: PopularPersonsMvpPresenter<PopularPersonsMvpView>
 
     @Inject
-    lateinit var linearLayoutManager: RecyclerView.LayoutManager
+    lateinit var linearLayoutManager: LinearLayoutManager
 
     @Inject
     lateinit var groupieAdapter: GroupAdapter<ViewHolder>

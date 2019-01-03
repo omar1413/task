@@ -20,16 +20,18 @@ class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val
     override fun listPopularPersons() {
 
         val disposable = dataManager.getPopularPeopleByPage(1)
-            .map {
-                it.results
-            }
-            .flatMapObservable {
-                Observable.fromIterable(it)
-            }
+//            .map {
+//                it.results
+//            }
+//            .flatMapObservable {
+//                Observable.fromIterable(it)
+//            }
             .subscribeOn(Schedulers.io())
+            .toObservable()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                mvpView?.addPopularPersonToTheList(PopularPerson(it.id,it.name,it.popularity,it.profilePath))
+                it ->
+                //mvpView?.addPopularPersonToTheList(PopularPerson(it.id,it.name,it.popularity,it.profilePath))
             }
 
     }

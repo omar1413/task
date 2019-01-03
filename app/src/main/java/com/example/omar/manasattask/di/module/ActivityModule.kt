@@ -33,7 +33,7 @@ class ActivityModule (val activity: AppCompatActivity){
 
     @ActivityScope
     @Provides
-    fun providesLayoutManager( @ActivityContextQualifier context: Context): RecyclerView.LayoutManager{
+    fun providesLayoutManager( @ActivityContextQualifier context: Context): LinearLayoutManager{
         return LinearLayoutManager(context)
     }
 
