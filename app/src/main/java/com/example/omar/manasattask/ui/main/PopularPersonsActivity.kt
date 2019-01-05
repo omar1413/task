@@ -3,6 +3,8 @@ package com.example.omar.manasattask.ui.main
 import android.app.Person
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.omar.manasattask.R
@@ -67,6 +69,11 @@ class PopularPersonsActivity : BaseActivity(), PopularPersonsMvpView {
     override fun goToDetailsActivity() {
         val intent = Intent(this, DetailsActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
 }
