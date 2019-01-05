@@ -7,6 +7,7 @@ import com.example.omar.manasattask.data.retrofit.pojo.popular.PopularRoot
 import com.example.omar.manasattask.data.retrofit.service.PersonDetailsService
 import com.example.omar.manasattask.data.retrofit.service.PersonImagesService
 import com.example.omar.manasattask.data.retrofit.service.PopularPeopleService
+import com.example.omar.manasattask.data.retrofit.service.SearchService
 import io.reactivex.Single
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -32,5 +33,9 @@ class RetrofitManager @Inject constructor() : RetrofitHelper {
         return service.getPersonImages(personId,BuildConfig.API_KEY)
     }
 
+    override fun getPerson(query: String,pageNum:Int): Single<PopularRoot> {
+        val service = retrofit.create(SearchService::class.java)
+        return service.searchForPopularPeople(query,BuildConfig.API_KEY,pageNum)
+    }
 
 }

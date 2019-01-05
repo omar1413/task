@@ -66,6 +66,9 @@ dependencies {
 
     implementation 'com.mikhaellopez:hfrecyclerview-kotlin:1.1.1'
 
+    implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.2'
+
+
 
 
 }

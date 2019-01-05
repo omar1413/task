@@ -10,5 +10,6 @@ interface PopularPersonsMvpPresenter<V: PopularPersonsMvpView> :MvpPresenter<V> 
 
 
     fun onItemClicked(personId: Int)
+    fun searchForPerson(query: String)
 
 }

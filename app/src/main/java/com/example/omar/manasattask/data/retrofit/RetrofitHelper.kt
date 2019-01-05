@@ -15,4 +15,5 @@ interface RetrofitHelper{
 
 
     fun getPersonImages(personId: Int): Single<PersonImagesResponse>
+    fun getPerson(query: String, pageNum: Int): Single<PopularRoot>
 }

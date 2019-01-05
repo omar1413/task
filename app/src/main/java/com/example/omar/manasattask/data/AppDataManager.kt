@@ -12,6 +12,7 @@ import javax.inject.Inject
 class AppDataManager : MvpModel {
 
 
+
     @Inject
     lateinit var retrofitManager: RetrofitManager
 
@@ -42,6 +43,10 @@ class AppDataManager : MvpModel {
 
     override fun setUserDetailsId(id: Int) {
         prefHelper.setUserDetailsId(id)
+    }
+
+    override fun getPerson(query: String, pageNum: Int): Single<PopularRoot> {
+        return retrofitManager.getPerson(query, pageNum)
     }
 
 }

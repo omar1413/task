@@ -11,7 +11,6 @@ interface SearchService {
     fun searchForPopularPeople(
         @Query("query")query: String,
         @Query("api_key") apiKey: String,
-        @Query("language") lang: String,
         @Query("page") pageNum:Int
         ): Single<PopularRoot>
 }

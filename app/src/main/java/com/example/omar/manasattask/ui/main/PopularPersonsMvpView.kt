@@ -12,4 +12,6 @@ interface PopularPersonsMvpView: MvpView {
 
     fun goToDetailsActivity()
 
+    fun clearList()
+
 }
