@@ -1,20 +1,17 @@
 package com.example.omar.manasattask.ui.main
 
-import android.content.Context
+import android.util.Log
 import com.example.omar.manasattask.BuildConfig
 import com.example.omar.manasattask.data.MvpModel
-import com.example.omar.manasattask.data.retrofit.pojo.popular.PopularResult
 import com.example.omar.manasattask.data.retrofit.pojo.popular.PopularRoot
-import com.example.omar.manasattask.di.qualifier.AppContextQualifier
 import com.example.omar.manasattask.models.PopularPerson
 import com.example.omar.manasattask.ui.base.BasePresenter
-import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import javax.inject.Inject
 
 class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val dataManager: MvpModel) :
@@ -23,9 +20,10 @@ class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val
 
 
 
+
     override fun listPopularPersons() {
 
-        if (mvpView != null){
+        if (mvpView != null) {
             mvpView?.clearList()
         }
 
@@ -40,33 +38,35 @@ class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val
     }
 
 
-
     override fun onItemClicked(personId: Int) {
         dataManager.setUserDetailsId(personId)
-        if (mvpView != null){
+        if (mvpView != null) {
             mvpView?.goToDetailsActivity()
         }
     }
 
     override fun searchForPerson(query: String) {
-        val response = dataManager.getPerson(query,1)
-        if (mvpView != null){
+        val response = dataManager.getPerson(query, 1)
+        if (mvpView != null) {
             mvpView?.clearList()
         }
         listPopularPeople(response)
     }
 
-    private fun listPopularPeople( req: Single<PopularRoot>):Disposable{
-        return req.subscribeOn(Schedulers.io())
+    private fun listPopularPeople(req: Single<PopularRoot>): Disposable {
+        return checkNetwork(req)
+            .subscribeOn(Schedulers.io())
             .map {
                 it.results
             }
-            .toObservable()
             .flatMap {
                 Observable.fromIterable(it)
             }
+            .doOnError {
+                Log.d("", "")
+            }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { it ->
+            .subscribe ({
                 if (mvpView == null)
                     return@subscribe
                 mvpView?.addPopularPersonToTheList(
@@ -76,8 +76,12 @@ class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val
                         BuildConfig.Base_IMAGE_URL + it.profilePath
                     )
                 )
-            }
+            },{
+                Log.d("", "")
+            })
     }
+
+
 
 
 }

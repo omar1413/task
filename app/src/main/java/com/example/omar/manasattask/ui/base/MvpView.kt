@@ -8,4 +8,6 @@ interface MvpView {
     fun onError(@StringRes resId : Int)
     fun showMessage(message: String)
     fun showMessage(@StringRes resId: Int)
+
+    fun networkConnected():Boolean
 }

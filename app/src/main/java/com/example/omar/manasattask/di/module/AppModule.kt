@@ -2,6 +2,8 @@ package com.example.omar.manasattask.di.module
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import com.example.omar.manasattask.BuildConfig
 import com.example.omar.manasattask.data.AppDataManager
 import com.example.omar.manasattask.data.MvpModel
@@ -12,9 +14,13 @@ import com.example.omar.manasattask.di.qualifier.AppContextQualifier
 import com.example.omar.manasattask.di.qualifier.BaseUrlQualifier
 import com.example.omar.manasattask.di.qualifier.PrefInfoQualifier
 import com.example.omar.manasattask.di.scope.AppScope
+import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
+import com.github.pwittchen.reactivenetwork.library.rx2.ConnectivityPredicate
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -92,7 +98,6 @@ class AppModule(var application: Application) {
         return loggingInterceptor
     }
 
-
     @PrefInfoQualifier
     @AppScope
     @Provides
@@ -100,11 +105,24 @@ class AppModule(var application: Application) {
         return "tasl_pref"
     }
 
-
     @AppScope
     @Provides
     fun providesPrefsHelper(appPrefs: AppPreferenceHelper): PreferenceHelper{
         return appPrefs
+    }
+
+
+    @AppScope
+    @Provides
+    fun providesNetworkConnectivity(@AppContextQualifier context: Context): Observable<Connectivity> {
+        return ReactiveNetwork.observeNetworkConnectivity(context)
+    }
+
+
+    @AppScope
+    @Provides
+    fun providesConnectivityManager(@AppContextQualifier context: Context): ConnectivityManager{
+        return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
 

@@ -25,8 +25,7 @@ class DetailsPresenter<V : DetailsMvpView> @Inject constructor(val dataManager:M
 
 
 
-            val response1  = dataManager.getPersonDetails(id).subscribeOn(Schedulers.io())
-                .toObservable()
+            val response1  = checkNetwork(dataManager.getPersonDetails(id)).subscribeOn(Schedulers.io())
                 .flatMap { it->
                     Observable.just(it)
                 }
@@ -35,9 +34,8 @@ class DetailsPresenter<V : DetailsMvpView> @Inject constructor(val dataManager:M
                     mvpView?.showMessage(it.message!!)
                 }
 
-            val response2 = dataManager.getPersonImages(id)
+            val response2 = checkNetwork(dataManager.getPersonImages(id))
                 .subscribeOn(Schedulers.io())
-                .toObservable()
                 .map {
                     it.profiles
                 }
@@ -50,14 +48,16 @@ class DetailsPresenter<V : DetailsMvpView> @Inject constructor(val dataManager:M
                 .observeOn(AndroidSchedulers.mainThread())
 
             Observable.merge(response1,response2).observeOn(AndroidSchedulers.mainThread())
-                .subscribe{
+                .subscribe({it
                     if(mvpView == null)
                         return@subscribe
                     when(it){
                         is PersonDetailsResponse -> mvpView?.fillData(it)
                         is PersonProfile -> mvpView?.addImageItem(BuildConfig.Base_IMAGE_URL + it.filePath)
                     }
-                }
+                },{
+                    Log.d("","")
+                })
 
 
 

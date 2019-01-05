@@ -19,8 +19,6 @@ import javax.inject.Inject
 
 class PopularPersonsActivity : BaseActivity(), PopularPersonsMvpView {
 
-
-
     @Inject
     lateinit var presenter: PopularPersonsMvpPresenter<PopularPersonsMvpView>
 
