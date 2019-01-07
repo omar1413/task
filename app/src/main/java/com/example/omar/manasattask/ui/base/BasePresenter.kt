@@ -8,11 +8,14 @@ import com.github.pwittchen.reactivenetwork.library.rx2.ConnectivityPredicate
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 open class BasePresenter<V: MvpView>: MvpPresenter<V> {
 
     var mvpView: V? = null
+
+    var networkDisposable:Disposable? = null
 
     @Inject
     lateinit var networkConnectivityObservable: Observable<Connectivity>
@@ -31,6 +34,10 @@ open class BasePresenter<V: MvpView>: MvpPresenter<V> {
 
         if (mvpView != null && mvpView?.networkConnected() != true){
             mvpView?.showMessage("Network Not Connected")
+        }
+
+        if (networkDisposable != null){
+            networkDisposable?.dispose()
         }
 
 

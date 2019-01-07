@@ -53,8 +53,8 @@ class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val
         listPopularPeople(response)
     }
 
-    private fun listPopularPeople(req: Single<PopularRoot>): Disposable {
-        return checkNetwork(req)
+    private fun listPopularPeople(req: Single<PopularRoot>): Disposable? {
+        networkDisposable=  checkNetwork(req)
             .subscribeOn(Schedulers.io())
             .map {
                 it.results
@@ -79,6 +79,7 @@ class PopularPersonsPresenter<V : PopularPersonsMvpView> @Inject constructor(val
             },{
                 Log.d("", "")
             })
+        return networkDisposable
     }
 
 

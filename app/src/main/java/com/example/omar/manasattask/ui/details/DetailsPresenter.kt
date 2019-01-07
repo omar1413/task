@@ -25,7 +25,8 @@ class DetailsPresenter<V : DetailsMvpView> @Inject constructor(val dataManager:M
 
 
 
-            val response1  = checkNetwork(dataManager.getPersonDetails(id)).subscribeOn(Schedulers.io())
+            val response1  = dataManager.getPersonDetails(id).subscribeOn(Schedulers.io())
+                .toObservable()
                 .flatMap { it->
                     Observable.just(it)
                 }
@@ -34,7 +35,8 @@ class DetailsPresenter<V : DetailsMvpView> @Inject constructor(val dataManager:M
                     mvpView?.showMessage(it.message!!)
                 }
 
-            val response2 = checkNetwork(dataManager.getPersonImages(id))
+            val response2 = dataManager.getPersonImages(id)
+                .toObservable()
                 .subscribeOn(Schedulers.io())
                 .map {
                     it.profiles
